@@ -5,7 +5,7 @@ try {
     //用户cookie列表
     $filesContent = FileHelper::listFiles('data/cookie');
     //用户信息
-    $userList = include_once('data/auto/userinfo.php');
+    $config = include_once('../config.php');
 
 } catch (Exception $e) {
     echo 'Error: ',  $e->getMessage(), "\n";
