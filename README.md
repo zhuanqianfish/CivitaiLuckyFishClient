@@ -4,3 +4,10 @@
 2.收集buzz
 3.在线生图
 
+
+修改config.example.php
+填写cookie
+填写proxy代理信息
+
+
+

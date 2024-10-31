@@ -8,14 +8,15 @@ header("Access-Control-Max-Age: 3600");
 header('Content-Type: application/json');
 
 require_once('filehelper.php');
+require_once('../config.php');
 
-function request($url, $data, $cookie,$isPost=true, $needPorxy=false){
+function request($url, $data, $cookie,$isPost=true, $needPorxy=true){
     // 初始化cURL会话
     $ch = curl_init();
     // 设置cURL选项
     //// 允许cURL函数执行时使用代理
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    if($needPorxy || true){
+    if($needPorxy){
         // //设置代理类型
         //curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
         // //设置SOCKS5代理服务器地址和端口

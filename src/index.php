@@ -1,24 +1,18 @@
 <?php
 require_once('filehelper.php');
-// 读取目录 data/cookie 下的所有文件到数组
 try {
-    //用户cookie列表
-    $filesContent = FileHelper::listFiles('data/cookie');
-    //用户信息
     $config = include_once('../config.php');
-
 } catch (Exception $e) {
     echo 'Error: ',  $e->getMessage(), "\n";
     exit;
 }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WebSocket Client</title>
+    <title>摸鱼仙人的C站客户端</title>
     <style>
         #messages {
             width: 300px;
@@ -38,9 +32,7 @@ try {
 </head>
 <body>
 <div class="content">
-<div id="panel1" class="panel">
-    
-
+<div id="leftPanel" style="width:50%">
     <div class="button-group">
         <!-- <button  type="button" onclick="sendMessage()">发送消息</button> -->
         <!-- <button  type="button" onclick="createImg()">生图测试！</button> -->
@@ -54,63 +46,47 @@ try {
         <button  type="button" class="success" onclick="queryGeneratedImagesAndLiked()">检查生图队列并点赞</button>
         <!-- <button  type="button" class="success" onclick="_likedOneGenImg()">【测试】给一条生图记录点赞</button> -->
     </div>
-
-    <div>
-        <label for="cookieSelector">Choose a cookie:</label>
-        <select id="cookieSelector" >
-            <?php foreach ($filesContent as $file): ?>
-                <option value="<?= htmlspecialchars($file) ?>"><?= htmlspecialchars($file) ?></option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div>
+    <div class="button-group">
         ID：<span id="nowUserId">-</span>
         Buzz: <span id="buzzLeft">-</span> （黄：<span id="buzzLeft1">-</span> | 蓝：<span id="buzzLeft2">-</span>  ）
     </div>
-   
 
-    <div>
-        <p>@regist{"clientId":"c1"}</p>
-        <p>@run{"clientId":"c1", "action":"test_msg", "data":{"testkey":123},"from":"c2"}</p>
-    </div>
 
-</div>
-
-            <!--生图器-->
-<div id="panel2" class="panel">
-    <div class="submenu"  id="submenu2">
-    <h2 style="text-align:center;">在线生图</h2>
+    <div class="submenu"  id="creater">
+        <h2 style="text-align:center;">在线生图</h2>
+       
+        <div class="button-group">
+            <button type="button"  class="info" onclick="test2()">按钮2</button>
+            <button type="button"  class="info" onclick="test3()">按钮3</button>
+        </div>
+        <div class="button-group">
+            <button type="button" class="danger" onclick="getImageWhatIf()">预估Buzz消耗</button>
+            <button type="button" class="success" style="background:#" onclick="createImg()">生成图片</button>
+            <button type="button" class="warning" onclick="queryGeneratedImages()">查询生图结果</button>
+        </div>
+        <!--ACE 代码编辑器-->
+        <div class="button-group">
+            <div id="aceEditor" style="width:440px; height:180px;">Loading...</div>
+            <button type="button" id="aceEditorToggleButton" onclick="toggleEditor()" >打开编辑器</button>
+        </div>
+        <div class="form-container" style="display:none;">
+            <label for="name">当前任务ID:</label>
+            <input type="text" id="nowJobId" name="nowJobId" onchange="setNowJobId" />
+        </div>
+    </div>
+       
     <div class="button-group">
-        <button type="button" class="info" onclick="test1()">选择主模型??</button>
-        <button type="button" class="info" onclick="test2()">添加资源??</button>
-        <button class="add-btn info" onclick="addComponent()">Add Component??</button>
+        <button id="btnShowCreater" type="button" class="info" onclick="showCreater()">展开表单生图器</button>
     </div>
-    <div class="button-group">
-        <button type="button"  class="info" onclick="test2()">按钮2</button>
-        <button type="button"  class="info" onclick="test3()">按钮3</button>
-    </div>
-    <div class="button-group">
-        <button type="button" class="danger" onclick="checkBuzz()">获取当前Buzz</button>
-        <button type="button" class="danger" onclick="getImageWhatIf()">预估Buzz消耗</button>
-        <button type="button" class="success" style="background:#" onclick="createImg()">生成图片</button>
-        <button type="button" class="warning" onclick="queryGeneratedImages()">查询生图结果</button>
-    </div>
-    <!--ACE 代码编辑器-->
-    <div class="button-group">
-        <div id="aceEditor" style="width:440px; height:180px;">Loading...</div>
-        <button type="button" id="aceEditorToggleButton" onclick="toggleEditor()" >打开编辑器</button>
-    </div>
-    <div class="form-container" style="display:none;">
-        <label for="name">当前任务ID:</label>
-        <input type="text" id="nowJobId" name="nowJobId" onchange="setNowJobId" />
-    </div>
-    <!--生图结果-->
-    <div class="form-container">
-        <div id="luckfish_imageresult"></div>
-    </div>
-        <!-- 表单生图器 -->
-        <div class="form-container" style="display:block;">
-            <form >
+    <!-- 表单生图器 -->
+    <div id="formCreater" class="form-container" style="display:none;">
+        <h2 style="text-align:center;">表单生图器</h2>
+        <form >
+            <div class="button-group">
+                <button type="button" class="info" onclick="test1()">选择主模型??</button>
+                <button type="button" class="info" onclick="test2()">添加资源??</button>
+                <button type="button" class="add-btn info" onclick="addComponent()">Add Component??</button>
+            </div>
             <div id="components-wrapper">
             <!-- 动态生成的组件将会添加到这里 -->
             </div>
@@ -160,32 +136,43 @@ try {
             <input type="text" id="fish_width" name="fish_width" value="832" />
             <label for="name">height:</label>
             <input type="text" id="fish_height" name="fish_height" value="1216" />
-            
-
-            <button type="button" onclick="createImg()">生成图片</button>
-            </form>
-        </div>
+        </form>
     </div>
-    </div>
+</div>
 
+
+<div id="rightPanel"  style="width:50%">
+     <!--生图结果-->
+     <div class="form-container">
+        <div id="luckfish_imageresult"></div>
+    </div>
 </div>
 <script src="static/js/jquery.min.js"></script>
-<script src="static/js/websocket.js"></script>
 <script src="static/js/layer.min.js"></script>
 <script src="static/js/ace.min.js"></script>
 
 <script>
-    var cookieList = <?php echo json_encode(FileHelper::listFiles('data/cookie')); ?>
-    
     var now_cookie = null;
     var ace_editor = null;
+    $(function(){
+        //Loading...
+        console.log("init...")
+        ace_editor = ace.edit("aceEditor");
+        ace_editor.setTheme("ace/theme/monokai");
+        ace_editor.session.setMode("ace/mode/javascript");
+        // use setOptions method to set several options at once
+        ace_editor.setOptions({
+            autoScrollEditorIntoView: true,
+            copyWithEmptySelection: true,
+        });
+       // ace_editor.setValue(dataStr);
+    })
 
     function createImg(){
         var url = "https://civitai.com/api/trpc/orchestrator.generateImage";
         var tempStr =  ace_editor.getValue();
         var dataStr = JSON.parse(tempStr);
         var cookieName = document.getElementById('cookieSelector').value
-        
         var postdata =   JSON.stringify({"data":dataStr, "url":url,"cookieName": cookieName, "method":"POST"});
         $.post("action.php", postdata, function(res){
             console.log(res)
@@ -381,8 +368,8 @@ try {
     }
 
     var nowJobId = null;
- //检查生图队列
- function queryGeneratedImages(cursor=null){
+    //检查生图队列
+    function queryGeneratedImages(cursor=null){
         if(nowJobId){
             cursor = nowJobId;
         }
@@ -411,7 +398,7 @@ try {
                 var tempstatus = res.result.data.json.items[0].status;
                 if(tempstatus == "succeeded"){
                     var imgRes = res.result.data.json.items[0].steps[0].images ?? null;
-                   // displayImages(imgRes);
+                // displayImages(imgRes);
                     displayImagesMore(res.result.data.json.items);
                 }
             }
@@ -650,22 +637,19 @@ try {
         });
     }
 
+    //展开折叠表单生图器
+    var isShowCreater = false;
+    function showCreater(){
+        if(isShowCreater){
+            isShowCreater = false
+            $("#formCreater").slideUp(500);
+        }else{
+            isShowCreater = true
+            $("#formCreater").slideDown(500);
+        }
+    }
 
-    $(function(){
-        //Loading...
-        console.log("init...")
-        ace_editor = ace.edit("aceEditor");
-        ace_editor.setTheme("ace/theme/monokai");
-        ace_editor.session.setMode("ace/mode/javascript");
-        // use setOptions method to set several options at once
-        ace_editor.setOptions({
-            autoScrollEditorIntoView: true,
-            copyWithEmptySelection: true,
-        });
-       // var dataStr = localStorage.getItem('imgDataStr');
-       // ace_editor.setValue(dataStr);
-        readGenJson();
-    })
+  
 /////////////////////////////////////////////////////////
     //测试
     function test2(){
