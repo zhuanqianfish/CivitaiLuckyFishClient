@@ -1,0 +1,108 @@
+{
+    "json": {
+      "resources": [
+        {
+          "id": 290640,
+          "strength": 1,
+          "name": "V6 (start with this one)",
+          "trainedWords": [],
+          "modelId": 257749,
+          "modelName": "Pony Diffusion V6 XL",
+          "modelType": "Checkpoint",
+          "minStrength": -1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 720175,
+          "strength": 1,
+          "name": "High Quality V3",
+          "trainedWords": [
+            "zPDXL3"
+          ],
+          "modelId": 332646,
+          "modelName": "Pony PDXL Negative Embeddings",
+          "modelType": "TextualInversion",
+          "minStrength": -1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 833198,
+          "strength": 0.7,
+          "name": "v3",
+          "trainedWords": [
+            "zmzq",
+            "huge breasts",
+            "thin waist",
+            "thick thighs"
+          ],
+          "modelId": 745073,
+          "modelName": "zmzq_wonder_body_者迷者清身体",
+          "modelType": "LORA",
+          "minStrength": 0.1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 840066,
+          "strength": 1,
+          "name": "8step",
+          "trainedWords": [],
+          "modelId": 751209,
+          "modelName": "4step_pony_lightning",
+          "modelType": "LORA",
+          "minStrength": 0.1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "minor": false,
+          "available": true
+        }
+      ],
+      "params": {
+        "prompt": " score_9, score_8_up, score_7_up, score_6_up, BREAK, zmzq,, dutch angle,(huge breasts:1.2),(thin waist:1.3),(thick thighs:1.5),(long legs), BREAK\n1girl, solo, smile,  dark_elf, pointy_ears, breasts, dark_skin, long_hair, covered_navel, highleg_leotard, gloves, cowboy_shot, closed_mouth, bangs, head_tilt, blush,garden \n",
+        "negativePrompt": "safe_neg, score_4, score_5, score_6, (lesbians),futanari,extra fingers,distorted hands,distorted fingers, muscular,low quality, lowres, bad anatomy,worst quality, simple background, censored,text,signature,  lineless,watermark,signature, logo, source_anime, FastNegativeEmbedding,  low-quality, moir pattern, downsampling, aliasing, distorted, blurry, glossy, blur, jpeg artifacts, compression artifacts, poorly drawn, low-resolution, bad, distortion, twisted, excessive, exaggerated pose, exaggerated limbs, mixed characters, grainy, symmetrical, duplicate, error, pattern, beginner, pixelated, fake, hyper, glitch, overexposed, high-contrast, bad-contrast, black and white, NegfeetV2, messy, Deformed, Deformed face, Deformed fingers, Deformed hands, Out of frame, Poorly drawn face, Poorly drawn feet, Poorly drawn hands, Draft, Grainy, Kitsch, Low-res, old, sketch, black and white, doujinshi, exaggerated anatomy",
+        "cfgScale": 1.3,
+        "sampler": "DPM2 a",
+        "seed": null,
+        "clipSkip": 2,
+        "steps": 10,
+        "quantity": 4,
+        "nsfw": true,
+        "draft": false,
+        "baseModel": "Pony",
+        "workflow": "txt2img",
+        "fluxMode": "urn:air:flux1:checkpoint:civitai:618692@691639",
+        "experimental": false,
+        "tier": "free",
+        "height": 1216,
+        "width": 832
+      },
+      "tips": {
+        "creators": 0,
+        "civitai": 0
+      },
+      "remixOfId": null,
+      "authed": true
+    },
+    "meta": {
+      "values": {
+        "params.seed": [
+          "undefined"
+        ],
+        "remixOfId": [
+          "undefined"
+        ]
+      }
+    }
+  }

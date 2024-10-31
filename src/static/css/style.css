@@ -1,0 +1,353 @@
+ *{padding:0;margin: 0;}
+ div{
+    box-sizing: border-box;
+ }
+ 
+ /* 按钮组样式 */
+ .button-group {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .button-group button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #007bff; /* 默认蓝色 */
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* 信息按钮 */
+.button-group .info {
+    background-color: #17a2b8; /* 信息按钮的蓝色 */
+}
+
+/* 警告按钮 */
+.button-group .warning {
+    background-color: #ffc107; /* 警告按钮的黄色 */
+}
+
+/* 危险按钮 */
+.button-group .danger {
+    background-color: #dc3545; /* 危险按钮的红色 */
+}
+
+/* 成功按钮 */
+.button-group .success {
+    background-color: #28a745; /* 成功按钮的绿色 */
+}
+/* 鼠标悬停时的颜色变化 */
+.button-group button:hover {
+    opacity: 0.8;
+}
+
+/* 为每种类型的按钮添加悬停效果 */
+.button-group .info:hover {
+    background-color: #138496;
+}
+
+.button-group .warning:hover {
+    background-color: #e0a800;
+}
+
+.button-group .danger:hover {
+    background-color: #c82333;
+}
+
+.button-group .success:hover {
+    background-color: #218838;
+}
+
+
+  /* 表单样式 */
+  .form-container {
+    padding: 20px;
+  }
+
+  .form-container label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+
+  .form-container input[type="text"],
+  .form-container input[type="email"],
+  .form-container select,
+  .form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .form-container input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .form-container input[type="submit"]:hover {
+    background-color: #1e7e34;
+  }
+
+  /* 进度条样式 */
+  .progress-container {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 5px;
+    margin: 20px 0;
+  }
+
+  .progress-bar {
+    height: 20px;
+    background-color: #4CAF50;
+    width: 1%;
+    border-radius: 5px;
+    transition: width 0.5s ease-in-out;
+  }
+
+
+  /* 菜单样式 */
+  .lf-menu {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    width: 50px;
+    height: 50px;
+    background: #25262b;
+    color: white;
+    transition: width 0.3s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 5px 5px 0;
+  }
+
+  .lf-menu-icon {
+    font-size: 30px;
+    height: 50px; /* 固定高度为50像素 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .lf-menu .menu-content {
+    position: fixed;
+    top: 70px;
+    right: 0px;
+    width: 0;
+    height: calc(100% - 110px);
+    background: #25262b;
+    overflow: hidden;
+    transition: width 0.3s, left 0.3s;
+    padding-top:50px;
+  }
+
+  .lf-menu .menu-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lf-menu .menu-content ul li {
+    padding: 20px;
+  }
+
+  .lf-menu .menu-content ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+  }
+
+
+  .lf-menu .submenu {
+    display: none;
+    position: fixed;
+    top: 70px;
+    right: 300px;
+    min-width: 400px;
+    padding-top:10px;
+    height: calc(100% - 70px);
+    background: #25262b;
+    transition: right 0.5s;
+    overflow-y: scroll;
+  }
+
+  .lf-menu .submenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lf-menu .submenu ul li {
+    padding: 10px 20px;
+  }
+
+  .lf-menu .submenu ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+  }
+
+
+  .lf-menu .close-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+
+  .active {
+  background-color: #0056b3; /* 深蓝色背景 */
+  color: white; /* 白色文字 */
+}
+
+  /* 展开后的菜单样式 */
+  .lf-menu.open {
+    width: 300px;
+  }
+
+  .lf-menu.open .menu-content {
+    width: 300px;
+  }
+
+  /* 隐藏样式 */
+  .hidden {
+    display: none;
+  }
+
+  /*动态组件样式*/
+
+  /* 组件容器样式 */
+  .component-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  /* 输入组件样式 */
+  .input-component {
+    flex: 1;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+  }
+
+  /* 数字输入框和滑动杆样式 */
+  .number-input, .slider {
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .number-input {
+    width: 25%;
+  }
+
+  .slider {
+    width: 75%;
+  }
+
+  /* 操作按钮样式 */
+  .add-btn, .remove-btn {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .remove-btn {
+    background-color: #dc3545;
+  }
+
+  .add-btn:hover, .remove-btn:hover {
+    opacity: 0.9;
+  }
+
+  /*图片展示区*/
+   #luckfish_imageresult {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            max-height: 720px; /* 设置最大高度 */
+            overflow-y: auto; /* 启用垂直滚动 */
+            width:500px;
+        }
+        .panel {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100%;
+        }
+        .panel-header {
+            padding: 10px;
+            background-color: #007bff; /* 设置背景颜色为 #007bff */
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: white; /* 设置文字颜色为白色 */
+        }
+        .panel-header .arrow {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 10px 8px 0;
+            border-color: transparent #fff transparent transparent; /* 设置箭头颜色为白色 */
+        }
+        .panel-header.active .arrow {
+            transform: rotate(90deg);
+        }
+        .panel-header .status {
+            padding: 2px 6px;
+            border-radius: 4px;
+            background-color: #28a745; /* 成功状态颜色 */
+            color: white;
+            font-size: 0.8em;
+        }
+        .panel-header.failed .status {
+            background-color: #dc3545; /* 失败状态颜色 */
+        }
+        .panel-content {
+            padding: 10px;
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .image-item {
+            width: calc(50% - 11px); /* 减去gap的大小 */
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 2px;
+        }
+        .status-div {
+            width: 100%;
+            padding: 10px;
+            background-color: #ccc;
+            text-align: center;
+        }
+        .active .panel-content {
+            display: flex;
+        }
+
+
+  .image-item:hover {
+      transform: scale(1.1); /* 鼠标悬停时放大图片 */
+  }
+

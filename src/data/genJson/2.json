@@ -1,0 +1,106 @@
+{
+    "json": {
+      "resources": [
+        {
+          "id": 695106,
+          "strength": 1,
+          "name": "Pony-Real_v1.1-Fix",
+          "trainedWords": [],
+          "modelId": 477851,
+          "modelName": "DucHaiten-Pony-Real",
+          "modelType": "Checkpoint",
+          "minStrength": -1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 20170,
+          "strength": 1,
+          "name": "75 Vector Version",
+          "trainedWords": [
+            "bad-picture-chill-75v"
+          ],
+          "modelId": 17083,
+          "modelName": "bad-picture negative embedding for ChilloutMix",
+          "modelType": "TextualInversion",
+          "minStrength": -1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "SD 1.5",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 135867,
+          "strength": 1,
+          "name": "v1.0",
+          "trainedWords": [],
+          "modelId": 122359,
+          "modelName": "Detail Tweaker XL",
+          "modelType": "LORA",
+          "minStrength": -1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "SDXL 1.0",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 840050,
+          "strength": 1,
+          "name": "4step",
+          "trainedWords": [],
+          "modelId": 751209,
+          "modelName": "4step_pony_lightning",
+          "modelType": "LORA",
+          "minStrength": 0.1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "image": {
+            "url": "93d19b7c-a940-4341-aede-731936ad5e44"
+          },
+          "minor": false,
+          "available": true
+        }
+      ],
+      "params": {
+        "prompt": "(score_9, score_8_up, score_7_up) 1girl, solo, realistic lighting, photo, photorealistic, Beautiful Russian \n girl, very long hair , blonde hair, freckles, side long thin braid, native pale skin, ",
+        "negativePrompt": "score_4,score_5,score_6,",
+        "cfgScale": 1.5,
+        "sampler": "DPM2 a",
+        "seed": null,
+        "clipSkip": 2,
+        "steps": 10,
+        "quantity": 4,
+        "nsfw": true,
+        "draft": false,
+        "baseModel": "Pony",
+        "workflow": "txt2img",
+        "fluxMode": "urn:air:flux1:checkpoint:civitai:618692@691639",
+        "experimental": false,
+        "tier": "free",
+        "height": 1216,
+        "width": 832
+      },
+      "tips": {
+        "creators": 0,
+        "civitai": 0
+      },
+      "remixOfId": null,
+      "authed": true
+    },
+    "meta": {
+      "values": {
+        "params.seed": [
+          "undefined"
+        ],
+        "remixOfId": [
+          "undefined"
+        ]
+      }
+    }
+  }

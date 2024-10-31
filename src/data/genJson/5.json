@@ -1,0 +1,94 @@
+{
+    "json": {
+      "resources": [
+        {
+          "id": 290640,
+          "strength": 1,
+          "name": "V6 (start with this one)",
+          "trainedWords": [],
+          "modelId": 257749,
+          "modelName": "Pony Diffusion V6 XL",
+          "modelType": "Checkpoint",
+          "minStrength": -1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 840066,
+          "strength": 1,
+          "name": "8step",
+          "trainedWords": [],
+          "modelId": 751209,
+          "modelName": "4step_pony_lightning",
+          "modelType": "LORA",
+          "minStrength": 0.1,
+          "maxStrength": 2,
+          "covered": true,
+          "baseModel": "Pony",
+          "minor": false,
+          "available": true
+        },
+        {
+          "id": 725772,
+          "strength": 0.7,
+          "name": "Watercolor Anime",
+          "trainedWords": [
+            "watercolor \\(medium\\), traditional media,"
+          ],
+          "modelId": 264290,
+          "modelName": "Styles for Pony Diffusion V6 XL (Not Artists styles)",
+          "modelType": "LORA",
+          "minStrength": 0,
+          "maxStrength": 1,
+          "covered": true,
+          "baseModel": "Pony",
+          "image": {
+            "url": "159a40e0-15e5-4848-a9a8-4ac043f90016"
+          },
+          "minor": false,
+          "available": true
+        }
+      ],
+      "params": {
+        "prompt": "score_9, score_8_up, score_7_up, score_6_up, aesthetic, 1girl, applejack, athletic, abs, changing rooms, large breasts, looking away, underwear, sports bra, cleavage, smile, cute, indoors, highest quality",
+        "negativePrompt": "score_5, score_4, ",
+        "cfgScale": 1.5,
+        "sampler": "DPM2 a",
+        "seed": null,
+        "clipSkip": 2,
+        "steps": 10,
+        "quantity": 4,
+        "nsfw": true,
+        "draft": false,
+        "baseModel": "Pony",
+        "workflow": "txt2img",
+        "fluxMode": null,
+        "experimental": false,
+        "tier": "free",
+        "height": 1216,
+        "width": 832
+      },
+      "tips": {
+        "creators": 0,
+        "civitai": 0
+      },
+      "remixOfId": null,
+      "authed": true
+    },
+    "meta": {
+      "values": {
+        "params.seed": [
+          "undefined"
+        ],
+        "params.fluxMode": [
+          "undefined"
+        ],
+        "remixOfId": [
+          "undefined"
+        ]
+      }
+    }
+  }
