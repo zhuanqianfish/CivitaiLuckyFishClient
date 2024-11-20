@@ -8,21 +8,23 @@ header("Access-Control-Max-Age: 3600");
 header('Content-Type: application/json');
 
 require_once('filehelper.php');
-require_once('../config.php');
+$config = require_once('../config.php');
 
-function request($url, $data, $cookie,$isPost=true, $needPorxy=true){
+function request($url, $data, $cookie,$isPost=true, $needProxy=true){
     // 初始化cURL会话
     $ch = curl_init();
     // 设置cURL选项
     //// 允许cURL函数执行时使用代理
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    if($needPorxy){
+
+    if($needProxy){
         // //设置代理类型
         //curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
         // //设置SOCKS5代理服务器地址和端口
         //curl_setopt($ch, CURLOPT_PROXY, "socks5://127.0.0.1:10808");
         // curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, "http://127.0.0.1:10809");
+        $proxy = $GLOBALS['config']['proxy'];
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
     }
    // curl_setopt($ch, CURLOPT_CAINFO, __DIR__."/ssl/cacert.pem");
    // 或者跳过证书验证（不推荐在生产环境中使用）
@@ -69,8 +71,12 @@ $recvData = json_decode($json, true);
 
 $url = $recvData['url'];
 $data = $recvData['data'];
-$cookieName = $recvData['cookieName'] ?? 0;
-$cookie =  getCookieByName($cookieName);
+$cookie =  $config['cookie'];
+$needProxy = true;
+$proxy = $config['proxy'];
+if(!$proxy || $proxy == ''){
+    $needProxy = false;
+}
 // var_dump($cookie); echo "\r\n";
 // var_dump($url); echo "\r\n";
 // var_dump($data); echo "\r\n";
@@ -82,21 +88,12 @@ if(!$cookie || $debug){
 }
 
 $isPost = $recvData['method'] == 'POST' ? true : false; 
-request($url, $data, $cookie, $isPost);
+request($url, $data, $cookie, $isPost, $needProxy);
 
 
 
 
 ////////////////////////////////////////////////
-function getCookieByName($cookieName){
-    try {
-        return $filesContent = FileHelper::readFile('data/cookie/'.$cookieName);
-    } catch (Exception $e) {
-        echo 'Error: ',  $e->getMessage(), "\n";
-        exit;
-    }    
-}
-
 
 function getFileContent(){
     $filePath = $recvData['filepath'];

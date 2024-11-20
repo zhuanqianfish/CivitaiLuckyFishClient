@@ -34,23 +34,15 @@ try {
 <div class="content">
 <div id="leftPanel" style="width:50%">
     <div class="button-group">
+        ID：<span id="nowUserId">-</span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Buzz: <span id="buzzLeft">-</span> （黄：<span id="buzzLeft1">-</span> | 蓝：<span id="buzzLeft2">-</span>  ）
+    </div>
+    <div class="button-group">
         <!-- <button  type="button" onclick="sendMessage()">发送消息</button> -->
         <!-- <button  type="button" onclick="createImg()">生图测试！</button> -->
         <button  type="button" onclick="getUserId()">获取当前用户ID</button>
         <button  type="button" onclick="checkBuzz()">获取用户剩余Buzz</button>
     </div>
-    
-    <div class="button-group">
-        <button  type="button" class="success" onclick="claimDailyBoostReward()">收取生图器每日Buzz</button>
-        <button  type="button" class="success" onclick="getImageList()">给全站最新图片点赞</button>
-        <button  type="button" class="success" onclick="queryGeneratedImagesAndLiked()">检查生图队列并点赞</button>
-        <!-- <button  type="button" class="success" onclick="_likedOneGenImg()">【测试】给一条生图记录点赞</button> -->
-    </div>
-    <div class="button-group">
-        ID：<span id="nowUserId">-</span>
-        Buzz: <span id="buzzLeft">-</span> （黄：<span id="buzzLeft1">-</span> | 蓝：<span id="buzzLeft2">-</span>  ）
-    </div>
-
 
     <div class="submenu"  id="creater">
         <h2 style="text-align:center;">在线生图</h2>
@@ -148,7 +140,7 @@ try {
     </div>
 </div>
 <script src="static/js/jquery.min.js"></script>
-<script src="static/js/layer.min.js"></script>
+<script src="static/js/layui/layui.js"></script>
 <script src="static/js/ace.min.js"></script>
 
 <script>
@@ -172,8 +164,8 @@ try {
         var url = "https://civitai.com/api/trpc/orchestrator.generateImage";
         var tempStr =  ace_editor.getValue();
         var dataStr = JSON.parse(tempStr);
-        var cookieName = document.getElementById('cookieSelector').value
-        var postdata =   JSON.stringify({"data":dataStr, "url":url,"cookieName": cookieName, "method":"POST"});
+        
+        var postdata =   JSON.stringify({"data":dataStr, "url":url, "method":"POST"});
         $.post("action.php", postdata, function(res){
             console.log(res)
         })
@@ -188,81 +180,14 @@ try {
             console.log(filePath,strContent);
         })
     }
-
-
-    //一张图片点赞
-    function dianzan1(entityId, i, cookieName=null){
-        var url = "https://civitai.com/api/trpc/reaction.toggle";
-        if(!cookieName){
-            cookieName = document.getElementById('cookieSelector').value
-        }
-        var data = {
-                "json": {
-                    "entityId": entityId,
-                    "entityType": "image",
-                    "reaction": "Like",
-                    "authed": true
-                }
-        };
-        var postdata =   JSON.stringify({"data":data, "url":url,"cookieName": cookieName,"method":"POST"});
-        var requestData = {
-            method: "POST",
-            url: "action.php",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data:postdata,
-            success: function(res) {
-                //console.log('dianzan', entityId);
-            }
-        };
-        const minDelay = i; // 最小延迟时间（毫秒）
-        const maxDelay = i + 3; // 最大延迟时间（毫秒）
-        const randomDelayTime = Math.random() * (maxDelay - minDelay) + minDelay; // 生成随机延迟时间
-
-        setTimeout(() => {
-           // console.log('延迟执行');
-            $.ajax(requestData);
-        }, Math.floor(randomDelayTime * 100)); // 将毫秒转换为微秒
-    }; 
-
-    //获取每日生图器Buzz
-    function claimDailyBoostReward(cookieName=null){
-        var url = "https://civitai.com/api/trpc/buzz.claimDailyBoostReward";
-        if(!cookieName){
-            cookieName = document.getElementById('cookieSelector').value
-        }
-        var data =  {
-                "json": null,
-                "meta": {
-                    "values": [
-                        "undefined"
-                    ]
-                }
-            };
-        var postdata =   JSON.stringify({"data":data, "url":url,"cookieName": cookieName,"method":"POST"});
-        var requestData = {
-            method: "POST",
-            url:"action.php",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data:postdata,
-            success: function(res) {
-                console.log('claimDailyBoostReward', res);
-            }
-        };
-        $.ajax(requestData);
-    }
  
 
     var userId = null;  //当前用户的ID
     //查询用户id
     function getUserId(callback){
         var url = 'https://civitai.com/api/trpc/buzz.getUserMultipliers?input={"json":null,"meta":{"values":["undefined"]}}';
-        var cookieName = document.getElementById('cookieSelector').value
         var data = [];
-        var postdata =   JSON.stringify({"data":data, "url":url,"cookieName": cookieName,"method":"GET"});
+        var postdata =   JSON.stringify({"data":data, "url":url,"method":"GET"});
         var requestData = {
             method: "POST",
             url:"action.php" ,
@@ -286,9 +211,9 @@ try {
      //检查剩余 总buzz
      function checkBuzz(){
         var url = 'https://civitai.com/api/trpc/buzz.getUserMultipliers?input={"json":null,"meta":{"values":["undefined"]}}';
-        var cookieName = document.getElementById('cookieSelector').value
+        
         var tempData = {"json":null,"meta":{"values":["undefined"]}};
-        var postdata =  JSON.stringify({"data":tempData, "url":url,"cookieName": cookieName,"method":"GET"});
+        var postdata =  JSON.stringify({"data":tempData, "url":url,"method":"GET"});
         var requestData = {
             method: "POST",
             url:"action.php" ,
@@ -301,7 +226,7 @@ try {
                 userId = res.result.data.json.userId
                 var url2 = "https://civitai.com/api/trpc/buzz.getBuzzAccount";
                 var tempData2 = {"input":JSON.stringify({"json":{"accountId":userId,"accountType":null,"authed":true},"meta":{"values":{"accountType":["undefined"]}} }) };
-                var postdata2 =   JSON.stringify({"data":tempData2, "url":url2,"cookieName": cookieName,"method":"GET"});
+                var postdata2 =   JSON.stringify({"data":tempData2, "url":url2,"method":"GET"});
 
                 var requestData2 = {
                     method: "POST",
@@ -327,9 +252,9 @@ try {
     //检查剩余 黄buzz
     function checkBuzz1(){
         var url2 = "https://civitai.com/api/trpc/buzz.getBuzzAccount";
-        var cookieName = document.getElementById('cookieSelector').value
+        
         var tempData2 = {"input":JSON.stringify({"json":{"accountId":userId,"accountType":"user","authed":true}}) };
-        var postdata2 =   JSON.stringify({"data":tempData2, "url":url2,"cookieName": cookieName,"method":"GET"});
+        var postdata2 =   JSON.stringify({"data":tempData2, "url":url2,"method":"GET"});
 
         var requestData2 = {
             method: "POST",
@@ -348,9 +273,9 @@ try {
     //检查剩余 蓝buzz
     function checkBuzz2(){
         var url2 = "https://civitai.com/api/trpc/buzz.getBuzzAccount";
-        var cookieName = document.getElementById('cookieSelector').value
+        
         var tempData2 = {"input":JSON.stringify({"json":{"accountId":userId,"accountType":"generation","authed":true}}) };
-        var postdata2 =   JSON.stringify({"data":tempData2, "url":url2,"cookieName": cookieName,"method":"GET"});
+        var postdata2 =   JSON.stringify({"data":tempData2, "url":url2,"method":"GET"});
 
         var requestData2 = {
             method: "POST",
@@ -383,8 +308,8 @@ try {
                     {"json":{"cursor":cursor,"authed":true},"meta":{"values":{"cursor":["undefined"]}}}
                 )
             };
-        var cookieName = document.getElementById('cookieSelector').value
-        var postdata =  JSON.stringify({"data":tempData, "url":url,"cookieName": cookieName,"method":"GET"});
+        
+        var postdata =  JSON.stringify({"data":tempData, "url":url,"method":"GET"});
 
         var requestData = {
             method: "POST",
@@ -447,7 +372,7 @@ try {
                     imgElement.className = 'image-item';
                     imgElement.onclick = function() {
                        layer.open({
-                           type: 2,
+                           type: 1,
                            title: false,
                            closeBtn: 1,
                            area: ['90%', '90%'], // 全屏显示
@@ -471,121 +396,7 @@ try {
         });
     }
 
-    //检查生图队列并点赞 
-    function queryGeneratedImagesAndLiked(pubcount=3){
-        var tempData = {"json":{"cursor":null,"authed":true},"meta":{"values":{"tags":["undefined"]}}};
-        var url = "https://civitai.com/api/trpc/orchestrator.queryGeneratedImages";
-        var tempData = 
-            {"input":
-                JSON.stringify(
-                    {"json":{"cursor":null,"authed":true},"meta":{"values":{"cursor":["undefined"]}}}
-                )
-            };
-        var cookieName = document.getElementById('cookieSelector').value
-        var postdata =  JSON.stringify({"data":tempData, "url":url,"cookieName": cookieName,"method":"GET"});
-        var requestData = {
-            method: "POST",
-            url:"action.php" ,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data:postdata,
-            success: function(res) {
-                // console.log('queryGeneratedImages', res);
-                // console.log(`这里应该是发布最新${pubcount}条`,imgRes);
-                for(let i = 0;i < pubcount ;i++){
-                    var tempwork = res.result.data.json.items[i];
-                    for(let j=0;j < tempwork.steps[0].images.length ;j++){
-                        var tempImage = tempwork.steps[0].images[j];
-                        _likedOneGenImg(tempImage.workflowId, tempImage.id);    //点赞
-                    }
-                }
-            }
-        };
-        $.ajax(requestData);
-    }
-
-    //给一条生图记录点赞
-    function _likedOneGenImg(workflowId, imgId){
-        // var workflowId = '5476734-20240920010509702'
-        var imgPath = '/images/'+ imgId
-        var tempData = {
-            "json": {
-                "workflows": null,
-                "steps": [
-                {
-                    "workflowId": workflowId,
-                    "stepName": "$0",
-                    "patches": [
-                    {
-                        "op": "add",
-                        "path": "/images",
-                        "from": null,
-                        "value": {}
-                    },
-                    {
-                        "op": "add",
-                        "path": imgPath,
-                        "from": null,
-                        "value": {}
-                    },
-                    {
-                        "op": "add",
-                        "path": imgPath + "/feedback",
-                        "from": null,
-                        "value": "liked"
-                    }
-                    ]
-                }
-                ],
-                "remove": null,
-                "tags": [
-                {
-                    "workflowId": workflowId,
-                    "tag": "feedback:liked",
-                    "op": "add"
-                }
-                ],
-                "authed": true
-            },
-            "meta": {
-                "values": {
-                "workflows": [
-                    "undefined"
-                ],
-                "steps.0.patches.0.from": [
-                    "undefined"
-                ],
-                "steps.0.patches.1.from": [
-                    "undefined"
-                ],
-                "steps.0.patches.2.from": [
-                    "undefined"
-                ],
-                "remove": [
-                    "undefined"
-                ]
-                }
-            }
-        };
-
-        var url = "https://civitai.com/api/trpc/orchestrator.patch";
-        var cookieName = document.getElementById('cookieSelector').value
-        var postdata =  JSON.stringify({"data":tempData, "url":url,"cookieName": cookieName,"method":"POST"});
-        var requestData = {
-            method: "POST",
-            url:"action.php" ,
-            headers: {
-                "Content-Type": "application/json"
-            },
-            data:postdata,
-            success: function(res) {
-                console.log('_likedOneGenImg', res);
-            }
-        };
-        $.ajax(requestData);
-
-    }
+    
 
     //预估生图消耗 - error
     function getImageWhatIf(){
@@ -593,8 +404,8 @@ try {
         var editor = ace.edit("aceEditor");
         var dataStr = editor.getValue();
         var tempData = {"input": JSON.stringify({"json":JSON.parse(dataStr)}) } ;//;
-        var cookieName = document.getElementById('cookieSelector').value
-        var postdata =  JSON.stringify({"data":tempData, "url":url,"cookieName": cookieName,"method":"GET"});
+        
+        var postdata =  JSON.stringify({"data":tempData, "url":url,"method":"GET"});
 
         var requestData = {
             method: "POST",
